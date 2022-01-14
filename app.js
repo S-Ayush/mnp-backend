@@ -7,7 +7,7 @@ const cookieParser = require("cookie-parser");
 app.use(
   cors({
     credentials: true,
-    origin: "maninanest.com", //"http://127.0.0.1:5500",
+    origin: "http://maninanest.com/", //"http://127.0.0.1:5500",
   })
 );
 
