@@ -12,7 +12,7 @@ app.use(
 );
 
 dotenv.config({ path: "./config.env" });
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 //for getting json body from client
 app.use(express.json());
