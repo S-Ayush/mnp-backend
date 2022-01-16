@@ -16,8 +16,8 @@ router.get("/userData", async (req, res) => {
   if (req.rootuser.role === "admin" || req.rootuser.role === "superadmin") {
     var project = await Project.find();
     var user = {
-      projects: { ...project },
-      user: { ...req.rootuser },
+      projects: project,
+      user: { ...req.rootuser._doc },
     };
     res.status(200).json(user);
   } else {
