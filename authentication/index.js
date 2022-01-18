@@ -56,4 +56,15 @@ auth.post("/login", async (req, res) => {
   }
 });
 
+// for log out user
+
+auth.get("/logout", (req, res) => {
+  res.clearCookie("jwtToken", {
+    httpOnly: true,
+    sameSite: "none",
+    secure: true,
+  });
+  res.status(200).send("user Logout");
+});
+
 module.exports = auth;

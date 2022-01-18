@@ -41,6 +41,14 @@ const projectSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  submitted: {
+    type: Number,
+    required: true,
+  },
+  paid: {
+    type: Number,
+    required: true,
+  },
   project_head_accountid: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
