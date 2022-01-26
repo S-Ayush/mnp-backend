@@ -38,6 +38,35 @@ router.post("/project", (req, res) => {
   const project = new Project(req.body);
   project.Project_head = user.name;
   project.project_head_accountid = user._id;
+  // var updatedCompiler = [];
+  // for (i = 0; i < project.compiler.length; i++) {
+  //   var compiler = project.compiler[i];
+  //   User.findOne({ email: compiler.email }).then((compilerPresent) => {
+  //     if (compilerPresent) {
+  //       updatedCompiler.push({ compilerId: compilerPresent._id });
+  //     } else {
+  //       let newCompiler = {
+  //         name: compiler.name,
+  //         email: compiler.email,
+  //         password: compiler.name + 123,
+  //         mobile: compiler.mobile,
+  //         role: "compiler",
+  //         designation: "compiler",
+  //       };
+  //       const addCompiler = new User(newCompiler);
+  //       addCompiler
+  //         .save()
+  //         .then((data) => {
+  //           updatedCompiler.push({ compilerId: data._id });
+  //         })
+  //         .catch((err) => {
+  //           res.status(400).send(err);
+  //         });
+  //     }
+  //   });
+  // }
+
+  // project.compiler = updatedCompiler;
   project
     .save()
     .then((data) => {
@@ -48,4 +77,14 @@ router.post("/project", (req, res) => {
     });
 });
 
+router.get(`/project/:id`, (req, res) => {
+  const id = req.params.id;
+  Project.findOne({ id })
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) => {
+      res.status(400).send(err);
+    });
+});
 module.exports = router;
