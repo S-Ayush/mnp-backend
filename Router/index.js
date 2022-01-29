@@ -79,7 +79,8 @@ router.post("/project", (req, res) => {
 
 router.get(`/project/:id`, (req, res) => {
   const id = req.params.id;
-  Project.findOne({ id })
+  console.log(id);
+  Project.findById(id)
     .then((data) => {
       res.status(200).json(data);
     })
