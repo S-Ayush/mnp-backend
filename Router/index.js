@@ -88,4 +88,27 @@ router.get(`/project/:id`, (req, res) => {
       res.status(400).send(err);
     });
 });
+
+router.delete("/project/:id", async (req, res) => {
+  const id = req.params.id;
+  Project.findByIdAndDelete(id)
+    .then((data) => {
+      res.status(200).json("Data Deleted!");
+    })
+    .catch((err) => {
+      res.status(400).send("Data not Deleted");
+    });
+});
+
+router.put("/project/:id", async (req, res) => {
+  const id = req.params.id;
+  const projectData = req.body;
+  Project.findByIdAndUpdate(id, projectData)
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) => {
+      res.status(400).send(err);
+    });
+});
 module.exports = router;
