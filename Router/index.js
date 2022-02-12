@@ -104,8 +104,10 @@ router.put("/project/:id", async (req, res) => {
   const id = req.params.id;
   const projectData = req.body;
   Project.findByIdAndUpdate(id, projectData)
-    .then((data) => {
-      res.status(200).json(data);
+    .then(() => {
+      Project.findById(id).then((data) => {
+        res.status(200).json(data);
+      });
     })
     .catch((err) => {
       res.status(400).send(err);
