@@ -772,6 +772,6 @@ jQuery(document).ready(function () {
     console.log(projects);
     fetchUserInfo("#get-user-info");
     fetchProjects(projects);
-    getTeam();
+    // getTeam();
   }, 1);
 });
