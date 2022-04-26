@@ -31,6 +31,19 @@ router.get("/userData", async (req, res) => {
     res.status(200).json(user);
   }
 });
+router.get("/team", (req, res) => {
+  if (req.rootuser.role === "admin" || req.rootuser.role === "superadmin") {
+    User.find()
+      .then((user) => {
+        res.status(200).json(user);
+      })
+      .catch((err) => {
+        res.status(400).send(err);
+      });
+  } else {
+    res.status(401).send("can't request this route");
+  }
+});
 
 //project Route ----------------------------->
 router.post("/project", (req, res) => {

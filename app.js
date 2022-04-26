@@ -1,13 +1,15 @@
 const dotenv = require("dotenv");
 const express = require("express");
+const paths = require("path");
 var cors = require("cors");
 const app = express();
 const cookieParser = require("cookie-parser");
+const { path } = require("./authentication");
 //allow cors origin
 app.use(
   cors({
     credentials: true,
-    origin: "http://maninanestpublication.com", //"http://127.0.0.1:5500",
+    origin: "https://mnp-backend.herokuapp.com/", // "http://maninanestpublication.com", //"http://127.0.0.1:5500",
   })
 );
 
@@ -20,7 +22,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // just for testing purpose
-app.post("/", (req, res) => {
+
+const staticPath = paths.join(__dirname, "public");
+app.use(express.static(staticPath));
+console.log(paths.join(__dirname, "public"));
+app.get("/", (req, res) => {
   res.json(req.body);
 });
 
