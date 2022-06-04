@@ -9,7 +9,7 @@ const { path } = require("./authentication");
 app.use(
   cors({
     credentials: true,
-    origin: "https://mnp-backend.herokuapp.com/", // "http://maninanestpublication.com", //"http://127.0.0.1:5500",
+    origin: "http://maninanestpublication.com", //"http://127.0.0.1:5500",
   })
 );
 
@@ -34,6 +34,8 @@ require("./DB/connection");
 
 //routin starts from here
 app.use(require("./authentication"));
+app.use(require("./authentication/bookUserAuthentication.js"));
+app.use(require("./Router/BookRouter"));
 app.use(require("./Router"));
 
 //listening on specific port

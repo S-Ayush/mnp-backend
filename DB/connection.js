@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const DB = process.env.DATABASE; //"mongodb://localhost:27017/mnp"; ///process.env.DATABASE;
+const DB = process.env.DATABASE; //"mongodb://localhost:27017/mnp";
 
 mongoose
   .connect(DB)
