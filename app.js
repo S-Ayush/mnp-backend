@@ -9,7 +9,7 @@ const { path } = require("./authentication");
 app.use(
   cors({
     credentials: true,
-    origin: "http://maninanestpublication.com", //"http://127.0.0.1:5500",
+    origin: "http://maninanest.com", //"http://127.0.0.1:5500",
   })
 );
 
