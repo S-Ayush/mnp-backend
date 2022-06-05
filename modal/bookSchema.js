@@ -6,7 +6,7 @@ const bookSchema = new mongoose.Schema({
     required: true,
   },
   authors: {
-    type: [mongoose.Types.ObjectId],
+    type: String,
     required: true,
   },
   cover_url: {
