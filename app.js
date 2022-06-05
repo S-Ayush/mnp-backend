@@ -9,7 +9,11 @@ const { path } = require("./authentication");
 app.use(
   cors({
     credentials: true,
-    origin: "http://maninanest.com", //"http://127.0.0.1:5500",
+    origin: [
+      "http://localhost:3000",
+      "http://maninanest.com",
+      "http://mnp-backend.herokuapp.com/",
+    ], //"http://maninanest.com", //"http://127.0.0.1:5500",
   })
 );
 
