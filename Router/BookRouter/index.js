@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const fs = require("fs");
 const multer = require("multer");
 const BOOK = require("../../modal/bookSchema");
+const BookUser = require("../../modal/booksUserSchema");
 
 const Storage = multer.diskStorage({
   destination: "public/uploads",
@@ -27,12 +28,6 @@ bookRouter.get(`/book`, (req, res) => {
     .catch((err) => {
       res.status(400).send(err);
     });
-});
-
-const booksAuthenticate = require("../../middleware/booksMiddleware");
-
-bookRouter.get("/user/book", booksAuthenticate, (req, res) => {
-  res.status(200).json(req.rootuser);
 });
 
 bookRouter.post("/book", (req, res) => {
@@ -62,4 +57,45 @@ bookRouter.post("/book", (req, res) => {
   });
 });
 
+bookRouter.post("/book/addUser", async (req, res) => {
+  const { book, user_emails } = req.body;
+  BookUser.bulkWrite(
+    user_emails.map((val) => ({
+      updateOne: {
+        filter: { email: val },
+        update: {
+          $push: {
+            books: book,
+          },
+        },
+        upsert: true,
+      },
+    }))
+  )
+    .then(() => {
+      res.status(200).json({ Message: "successfull" });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+  // const userExist = await BookUser.findOne({ email: req.body.email });
+  // if (userExist) {
+  //   res.status(422).json({ err: "user Exist" });
+  // } else {
+  //   const bookuser = new BookUser(req.body);
+  //   bookuser
+  //     .save()
+  //     .then(() => {
+  //       res.status(200).json({ Message: "successfull" });
+  //     })
+  //     .catch((err) => console.log(err));
+  // }
+});
+
+const booksAuthenticate = require("../../middleware/booksMiddleware");
+
+bookRouter.get("/user/book", booksAuthenticate, (req, res) => {
+  res.status(200).json(req.rootuser);
+});
 module.exports = bookRouter;
