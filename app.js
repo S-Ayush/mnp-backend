@@ -12,7 +12,7 @@ app.use(
     origin: [
       "http://localhost:3000",
       "http://maninanest.com",
-      "https://mnp-backend.herokuapp.com",
+      "http://mnp-backend.herokuapp.com",
     ], //"http://maninanest.com", //"http://127.0.0.1:5500",
   })
 );
