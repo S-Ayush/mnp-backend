@@ -9,6 +9,7 @@ body {
 }
 .books .books-image img {
   width: 100%;
+  border-radius: 7px;
 }
 
 .books .books-item {
@@ -18,6 +19,7 @@ body {
 .books .books-title {
   font-weight: 600;
   color: white;
+  margin-top: 7px;
 }
 .books .books-author {
   color: #8d8c8c;
