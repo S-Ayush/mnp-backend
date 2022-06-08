@@ -342,6 +342,11 @@
             >
               Project Overview
             </div>
+            <div class="analysis-navItem" id="show-books">Books</div>
+            <div class="analysis-navItem" id="books-analysis">Add Book</div>
+            <div class="analysis-navItem display-none" id="books-Access">
+              Books Access
+            </div>
           </div>
           <!-- analysis-tabs -->
           <div class="analysis-tabs">
@@ -387,6 +392,92 @@
             </div>
             <div class="analysis-content" id="specific-project-overview-tab">
               <h1>Project Overview Tab</h1>
+            </div>
+            <div class="analysis-content" id="books-analysis-tab">
+              <form>
+                <div class="form-field row">
+                  <div class="project-label col-md-3">
+                    <label for="bookTitle">Book Title</label>
+                  </div>
+                  <div class="col-md-9">
+                    <input
+                      id="bookTitle"
+                      name="bookTitle"
+                      class="projectinput"
+                      placeholder="Book Title"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-field row">
+                  <div class="project-label col-md-3">
+                    <label for="bookImage">Book Image</label>
+                  </div>
+                  <div class="col-md-9">
+                    <input
+                      id="bookImage"
+                      name="bookImage"
+                      class="projectinput"
+                      placeholder="Book Image"
+                      required
+                      accept="image/*"
+                      type="file"
+                    />
+                  </div>
+                </div>
+                <div class="form-field row">
+                  <div class="project-label col-md-3">
+                    <label for="bookAuthors">Book Authors</label>
+                  </div>
+                  <div class="col-md-9">
+                    <input
+                      id="bookAuthors"
+                      name="bookAuthors"
+                      class="projectinput"
+                      placeholder="Book Authors"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-field row">
+                  <div class="project-label col-md-3">
+                    <label for="bookLocation">Book Location</label>
+                  </div>
+                  <div class="col-md-9">
+                    <input
+                      id="bookLocation"
+                      name="bookLocation"
+                      class="projectinput"
+                      placeholder="Book Location"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-field row">
+                  <div class="project-label col-md-3">
+                    <label for="bookISBN">Book ISBN</label>
+                  </div>
+                  <div class="col-md-9">
+                    <input
+                      id="bookISBN"
+                      name="bookISBN"
+                      class="projectinput"
+                      placeholder="Book ISBN"
+                      required
+                    />
+                  </div>
+                </div>
+                <div
+                  class="btn btn-success"
+                  id="add-new-book-btn"
+                  style="width: 100%"
+                >
+                  Add Book
+                </div>
+              </form>
+            </div>
+            <div class="analysis-content" id="books-Access-tab">
+              <h2 class="books-access-name" style="text-align: center"></h2>
             </div>
           </div>
         </div>

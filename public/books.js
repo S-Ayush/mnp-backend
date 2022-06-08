@@ -2,6 +2,7 @@ jQuery(document).ready(function () {
   const API_HOST = "https://mnp-backend.herokuapp.com"; //"http://localhost:3000";
   let allBooks = [];
   let myBooks = [];
+  let user = "";
   let activeTab = "Books";
 
   $("#close-books-login-modal").on("click", function () {
@@ -23,9 +24,9 @@ jQuery(document).ready(function () {
     const emailRegex =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!email || !email.toLowerCase().match(emailRegex)) {
-      $("#login-modal").append(html);
+      $("#books-login-modal").append(html);
       setTimeout(function () {
-        $("#login-modal p").remove();
+        $("#books-login-modal p").remove();
       }, 5000);
     } else {
       console.log(email);
@@ -57,6 +58,10 @@ jQuery(document).ready(function () {
   $("#booksTab").on("click", ".books-item", function () {
     if (activeTab === "My Books") {
       window.open($(this).attr("id"), "_blank");
+    } else if (user) {
+      document.location.href = `/apps/dashboard.html?book_name=${$(this).attr(
+        "data-name"
+      )}&book_id=${$(this).attr("data-id")}`;
     }
   });
 
@@ -66,7 +71,7 @@ jQuery(document).ready(function () {
     let html = "";
     books.forEach((book) => {
       html += `
-            <div class="books-item col-md-3 col-4" id="${book.drive_url}">
+            <div class="books-item col-md-3 col-4" id="${book.drive_url}" data-name="${book.title}" data-id="${book._id}">
           <div class="books-image">
             <img src="${book.cover_url}" alt="" />
           </div>
@@ -78,6 +83,21 @@ jQuery(document).ready(function () {
         `;
     });
     $("#booksTab").html(html);
+  };
+
+  const checkUser = () => {
+    let queryString = document.location.search;
+    if (queryString) {
+      var query = {};
+      var pairs = (
+        queryString[0] === "?" ? queryString.substr(1) : queryString
+      ).split("&");
+      for (var i = 0; i < pairs.length; i++) {
+        var pair = pairs[i].split("=");
+        query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || "");
+      }
+      user = query.userid;
+    }
   };
 
   // API CALLS
@@ -135,4 +155,5 @@ jQuery(document).ready(function () {
 
   getBooks();
   checkAuthentication();
+  checkUser();
 });

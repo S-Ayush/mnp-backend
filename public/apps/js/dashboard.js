@@ -3,6 +3,10 @@ jQuery(document).ready(function () {
   var projects = [];
   var projectFilters = [];
   var updateProjectObj = {};
+  var currentBookDetails = {
+    name: "",
+    id: "",
+  };
   const packages = [
     { package: "1000 Elite", total_slots: "15" },
     { package: "700 Platinum", total_slots: "20" },
@@ -237,6 +241,13 @@ jQuery(document).ready(function () {
     const id = $(this).attr("id");
     $(".analysis-content.active").removeClass("active");
     $(`#${id}-tab`).addClass("active");
+  });
+
+  $("#add-new-book-btn").on("click", function () {
+    addNewbook();
+  });
+  $("#show-books").on("click", function () {
+    document.location.href = `/books.html?userid=${userData._id} `;
   });
   // helpers functions
 
@@ -639,6 +650,66 @@ jQuery(document).ready(function () {
     compilerCount = 0;
     $(".compiler-division").html(fetchNewCompilerSection());
   };
+
+  const addNewbook = () => {
+    debugger;
+    let newBook = {
+      title: "",
+      testImage: "",
+      authors: "",
+      drive_url: "",
+      isbn: "",
+    };
+    newBook.title = $("#bookTitle").val();
+    newBook.testImage = $("#bookImage").prop("files");
+    newBook.authors = $("#bookAuthors").val();
+    newBook.drive_url = $("#bookLocation").val();
+    newBook.isbn = $("#bookISBN").val();
+    var form_data = new FormData();
+
+    for (var key in newBook) {
+      if (key !== "testImage") {
+        form_data.append(key, newBook[key]);
+      } else {
+        form_data.append(key, newBook[key][0]);
+      }
+    }
+    // var data = new FormData();
+    // data.append("testImage", newBook.testImage);
+    // data.append("title", newBook.title);
+    // data.append("authors", newBook.authors);
+    // data.append("drive_url", newBook.drive_url);
+    // data.append("isbn", newBook.isbn);
+    addBook(form_data);
+  };
+
+  const getBooksfromUrl = () => {
+    let queryString = document.location.search;
+    if (queryString) {
+      var query = {};
+      var pairs = (
+        queryString[0] === "?" ? queryString.substr(1) : queryString
+      ).split("&");
+      for (var i = 0; i < pairs.length; i++) {
+        var pair = pairs[i].split("=");
+        query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || "");
+      }
+      if (query.book_id) {
+        currentBookDetails = { name: query.book_name, id: query.book_id };
+        $(".analysis-navItem.active").removeClass("active");
+        $("#books-Access")
+          .removeClass("display-none")
+          .addClass("display-block active");
+        $(".analysis-content.active").removeClass("active");
+        $("#books-Access-tab").addClass("active");
+        $("#books-Access-tab .books-access-name").html(query.book_name);
+        $("#books-Access")[0].scrollIntoView({
+          behavior: "smooth", // or "auto" or "instant"
+          inline: "start",
+        });
+      }
+    }
+  };
   //api calls
 
   const API_HOST = "https://mnp-backend.herokuapp.com"; //"http://localhost:3000";
@@ -765,6 +836,24 @@ jQuery(document).ready(function () {
       document.location = "/";
     }
   };
+  const addBook = async (book) => {
+    debugger;
+    const res = await fetch(`${API_HOST}/book`, {
+      method: "POST",
+      headers: {
+        Accept: "*/*",
+      },
+      credentials: "include",
+      body: book,
+      cookies: document.cookie,
+    });
+    if (res.status == 200) {
+      return res.json();
+    }
+    if (res.status == 401) {
+      document.location = "/";
+    }
+  };
   setTimeout(async function () {
     let data = await getUserData();
     userData = await data.user;
@@ -772,6 +861,7 @@ jQuery(document).ready(function () {
     console.log(projects);
     fetchUserInfo("#get-user-info");
     fetchProjects(projects);
+    getBooksfromUrl();
     // getTeam();
   }, 1);
 });

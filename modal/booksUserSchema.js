@@ -5,7 +5,7 @@ const bookUserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  books: { type: Array, required: true },
+  books: { type: [mongoose.Schema.Types.ObjectId], required: true },
 });
 
 const BookUser = mongoose.model("BOOKUSER", bookUserSchema);
