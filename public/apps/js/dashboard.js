@@ -848,10 +848,11 @@ jQuery(document).ready(function () {
       cookies: document.cookie,
     });
     if (res.status == 200) {
-      return res.json();
-    }
-    if (res.status == 401) {
+      document.location.href = `/books.html?userid=${userData._id} `;
+    } else if (res.status == 401) {
       document.location = "/";
+    } else {
+      alert("something went wrong!");
     }
   };
   setTimeout(async function () {
