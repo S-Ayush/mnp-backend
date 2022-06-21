@@ -7,20 +7,6 @@ jQuery(document).ready(function () {
     name: "",
     id: "",
   };
-  const packages = [
-    { package: "1000 Elite", total_slots: "15" },
-    { package: "700 Platinum", total_slots: "20" },
-    { package: "500 Diamond", total_slots: "30" },
-    { package: "375 Gold", total_slots: "40" },
-    { package: "250 Sapphire", total_slots: "40" },
-    { package: "200 Coral", total_slots: "45" },
-    { package: "150 Pearl", total_slots: "50" },
-    { package: "90 Classic", total_slots: "75" },
-    { package: "50 Classic Bio", total_slots: "150" },
-    { package: "30 Pocket", total_slots: "200" },
-    { package: "200 E-book", total_slots: "60" },
-    { package: "400 Hard Copy", total_slots: "60" },
-  ];
 
   setTimeout(function () {
     $(".header").addClass("hide");
@@ -331,6 +317,9 @@ jQuery(document).ready(function () {
       newProject.package = $(".add-new-project-input-collection #package")
         .val()
         .toLowerCase();
+      newProject.total_slots = $(
+        ".add-new-project-input-collection #total-slots"
+      ).val();
 
       var compilerCount = $(
         ".add-new-project-input-collection .compiler-division"
@@ -341,12 +330,6 @@ jQuery(document).ready(function () {
         var mobile = $(`.compiler${i} #compilermobile${i}`).val();
         newProject.compiler.push({ name, email, mobile });
       }
-      const selectedPackage = packages.find((package) => {
-        return (
-          package.package.toLowerCase() == newProject.package.toLowerCase()
-        );
-      });
-      newProject.total_slots = selectedPackage.total_slots;
       console.log(newProject);
       var addedProject = await addNewProjectToDatabase(newProject);
       projects.push(addedProject);

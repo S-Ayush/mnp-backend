@@ -31,7 +31,6 @@ const projectSchema = new mongoose.Schema({
   },
   Project_head: {
     type: String,
-    required: true,
   },
   total_slots: {
     type: Number,
@@ -51,7 +50,6 @@ const projectSchema = new mongoose.Schema({
   },
   project_head_accountid: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true,
   },
 });
 

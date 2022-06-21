@@ -40,6 +40,7 @@ require("./DB/connection");
 app.use(require("./authentication"));
 app.use(require("./authentication/bookUserAuthentication.js"));
 app.use(require("./Router/BookRouter"));
+app.use(require("./Router/publicRouter"));
 app.use(require("./Router"));
 
 //listening on specific port
